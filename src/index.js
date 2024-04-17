@@ -11,7 +11,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
         <Routes>
-            <Route path="simple-form/" element={<App/>}/>
+            <Route path="/" element={<App/>}/>
             <Route path="/home" element={<ShowUserInfo/>}/>
         </Routes>
       </BrowserRouter>
