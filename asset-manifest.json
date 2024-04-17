@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/simple-form/static/css/main.c2da4dcb.css",
+    "main.js": "/simple-form/static/js/main.477e3d50.js",
+    "index.html": "/simple-form/index.html",
+    "main.c2da4dcb.css.map": "/simple-form/static/css/main.c2da4dcb.css.map",
+    "main.477e3d50.js.map": "/simple-form/static/js/main.477e3d50.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c2da4dcb.css",
+    "static/js/main.477e3d50.js"
+  ]
+}
