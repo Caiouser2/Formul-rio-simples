@@ -1,0 +1,173 @@
+.border-red-invalid-input {
+    border: 4px solid red !important;
+    outline: none;
+}
+
+.form-user-info {
+    background-color: rgba(31, 31, 31, 0.829);
+    width: 75%;
+    max-width: 450px;
+    padding: 15px;
+    margin: 10% auto;
+    border-radius: 12px;
+    color: white;
+    display: grid;
+    gap: 0 7px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "title title" 
+    "input-name input-name" 
+    "input-email input-email" 
+    "input-phone input-date" 
+    "title-address title-address"
+    "input-postal-code input-postal-code"
+    "input-type-hausing input-number-hausing"
+    "input-neighborhood input-city" 
+    "button-submit button-submit"
+}
+
+.form-user-info > h2 {
+    font-size: clamp(1.5rem, 2.5vw, 4rem);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.agroup-label-and-input {
+    position: relative;
+}
+
+.agroup-label-and-input label {
+    position: absolute;
+    visibility: hidden;
+}
+
+.agroup-label-and-input input {
+    width: 100%;
+    margin-bottom: 15px;
+    outline: none;
+    border: 3px solid black;
+    box-shadow: none;
+    border-radius: 7px;
+    color: white;
+    background-color: transparent !important;
+    padding: 10px 5px;    
+    font-size: clamp(1rem, 1.5vw, 2rem);
+}
+
+.agroup-label-and-input input::placeholder {
+    color: rgba(215, 215, 215, 0.873);
+}
+
+.agroup-label-and-input input::-webkit-input-placeholder {
+    color: rgba(215, 215, 215, 0.873);
+}
+
+.agroup-label-and-input input:focus {
+    outline: 2px solid rgba(0, 0, 0, 0.745);
+}   
+
+.agroup-label-and-input input[type=number]::-webkit-inner-spin-button,
+.agroup-label-and-input input[type=tel]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.agroup-label-and-input input[type=number],
+.agroup-label-and-input input[type=tel] {
+    -moz-appearance: textfield;
+}
+
+.agroup-label-and-input input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8) brightness(50%) sepia(0%) saturate(10000%) hue-rotate(20deg);
+}
+
+.title-form {
+    grid-area: title;
+}
+
+.container-input-user-name {
+    grid-area: input-name;
+}
+
+.container-user-email {
+    grid-area: input-email;
+}
+
+.container-user-phone-number {
+    grid-area: input-phone;
+}
+
+.container-user-date-of-birth {
+    grid-area: input-date;
+}
+
+.title-address {
+    grid-area: title-address;
+    margin: 20px 0 10px 0;
+}
+
+.container-user-postal-code{
+    grid-area: input-postal-code;
+}
+
+.container-user-type-of-hausing {
+    grid-area: input-type-hausing;
+}
+
+.container-user-number-of-hausing {
+    grid-area: input-number-hausing;
+}
+
+.container-user-neighborhood {
+    grid-area: input-neighborhood;
+}
+
+.container-user-city {
+    grid-area: input-city;    
+}
+
+.button-submit-form {
+    background-color: rgb(113, 45, 113);
+    border: 2px solid black;
+    height: 42px;
+    font-size: 1rem;
+    cursor: pointer;
+    grid-area: button-submit;
+    color: white;
+    border-radius: 7px;
+    outline: none;
+}
+
+.button-submit-form:focus {
+    outline: 2px solid rgba(0, 0, 0, 0.745);
+}
+
+.button-submit-form:hover,
+.button-submit-form:focus {
+    background-color: rgba(113, 45, 113, 0.688);
+}
+
+@media screen and (max-width:410px) {
+    .form-user-info {
+        gap: 0;
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(12, auto);
+        grid-template-areas:
+        "title" 
+        "input-name" 
+        "input-email" 
+        "input-phone"
+        "input-date" 
+        "title-address"
+        "input-postal-code"
+        "input-type-hausing"
+        "input-number-hausing"
+        "input-neighborhood" 
+        "input-city"
+        "button-submit"
+    }
+
+    .agroup-label-and-input input {
+        margin-bottom: 13px;
+    }
+} 
