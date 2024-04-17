@@ -33,12 +33,16 @@ function User() {
                 <br></br>
                 <h3 className="text-email">{convertUserDataToObj.email}</h3>
                 <h3 className="text-phone-number">
-                    {`(${convertUserDataToObj.phone_number[0]}${convertUserDataToObj.phone_number[1]})  ${convertUserDataToObj.phone_number.substring(2)}`}
+                    {convertUserDataToObj.phone_number}
                 </h3>
             </div>
 
             <div className="agroup-address-informations">
                 <h3>Informações de endereço</h3>
+
+                <h4>Cep:
+                    <span>{convertUserDataToObj.postal_code}</span>
+                </h4>
 
                 <h4>Logradouro:
                     <span>{convertUserDataToObj.type_of_hausing}</span>
