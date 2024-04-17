@@ -21,4 +21,6 @@ Em casos que o form fosse para Produção, eu adicionaria mais condicionais para
 se necessario faria uso de bibliotecas para ter ainda mais domínio dos elementos contidos no form e otimizaria ainda mais o código para custar o miníno de processamento.   
 </h3>
 
-### *Para acessar o formulário baixe o repositório em sua maquina local, e use o comando <code>npm install</code> depois <code>npm start</code> para iniciar a aplicação.*
+## Veja como ficou:
+### *Para acessar sem baixar localmente clique <a href="https://caiouser2.github.io/Formul-rio-simples/">aqui</a>.*
+### *Para acessar o código do formulário baixe o repositório em sua maquina local. Use o comando <code>npm install</code> depois <code>npm start</code> para iniciar a aplicação.*
