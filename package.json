@@ -1,6 +1,6 @@
 {
   "name": "simple-form",
-  "homepage": "https://caiouser2.github.io/simple-form/",
+  "homepage": "simple-form/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
