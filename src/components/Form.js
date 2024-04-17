@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
-import './Form.css';
+import { PatternFormat } from "react-number-format";
 import { useNavigate } from "react-router-dom";
+import './Form.css';
+
 
 function Form() {
     const [indexInvalidValueOnInput, setIndexInvalidValueOnInput] = useState(null);
@@ -33,15 +35,12 @@ function Form() {
 
     function getAndSaveAllInformationsInForm() {
         // verfifica se todos os inputs estão preechidos, caso todos estejam
-        // salva um objeto no Local Storage 
+        // salva um objeto no Local Storage
+
+        console.log(getValueIntoInputPostalCode)
+
         counterValidInput.current = 0;
         removeErrorBorderOnInput()
-
-        // if(userInformationsFormatedToArray[counterValidInput.current].current.value !== '') {
-        //     //aumenta +1 no counterValidInput cada input correto. quando maior que 8 permite o submit do formulário
-        //     counterValidInput.current = counterValidInput.current + 1;
-        //     console.log(counterValidInput)
-        // }
 
         for(let index = 0; index < 9; index++) {
             if(userInformationsFormatedToArray[index].current.value === '') {
@@ -109,7 +108,15 @@ function Form() {
 
             <div className="agroup-label-and-input container-user-phone-number" onClick={removeErrorBorderOnInput}>
                 <label htmlFor="user-phone-number">Telefone</label>
-                <input id="user-phone-number" type="tel" placeholder="Telefone" minLength="11" maxLength="11" ref={getValueIntoInputPhoneNumber} required></input>
+                <PatternFormat
+                    id="user-phone-number"
+                    valueIsNumericString
+                    getInputRef={getValueIntoInputPhoneNumber}
+                    placeholder="Telefone"
+                    format="(##) #####-####"
+                    required
+                />
+
             </div>
 
             <div className="agroup-label-and-input container-user-date-of-birth" onClick={removeErrorBorderOnInput}>
@@ -121,14 +128,13 @@ function Form() {
 
             <div className="agroup-label-and-input container-user-postal-code" onClick={removeErrorBorderOnInput}>
                 <label htmlFor="user-postal-code">Cep</label>
-                <input
-                    id="user-postal-code"
-                    type="tel"
-                    maxLength="9"
-                    ref={getValueIntoInputPostalCode}
+                <PatternFormat
+                    valueIsNumericString
+                    getInputRef={getValueIntoInputPostalCode}
                     placeholder="Cep"
+                    format="####-####"
                     required
-                ></input>
+                />
             </div>
 
             <div className="agroup-label-and-input container-user-type-of-hausing" onClick={removeErrorBorderOnInput}>
@@ -148,7 +154,7 @@ function Form() {
                 <input
                     id="user-number-of-hausing"
                     type="tel"
-                    max="4"
+                    maxLength="5"
                     placeholder="Nºda residência"
                     ref={getValueIntoInputNumberOfHausing}
                     required
@@ -172,7 +178,7 @@ function Form() {
                 <input id="user-city" type="text" placeholder="Cidade" maxLength="40" ref={getValueIntoInputCity} required></input>
             </div>
 
-            <button class="button-submit-form" type="submit" onClick={getAndSaveAllInformationsInForm}>Concluir</button>
+            <button className="button-submit-form" type="submit" onClick={getAndSaveAllInformationsInForm}>Concluir</button>
         </form>
     );    
 }

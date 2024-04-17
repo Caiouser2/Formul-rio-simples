@@ -69,17 +69,20 @@
 .agroup-label-and-input input[type=number]::-webkit-inner-spin-button,
 .agroup-label-and-input input[type=tel]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    appearance: none;
 }
 
 .agroup-label-and-input input[type=number],
 .agroup-label-and-input input[type=tel] {
-    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .agroup-label-and-input input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(0.8) brightness(50%) sepia(0%) saturate(10000%) hue-rotate(20deg);
 }
+
+/* .agroup-label-and-input input[type="date"]::-webkit-datetime-edit {
+    color: rgba(215, 215, 215, 0.873);
+} */
 
 .title-form {
     grid-area: title;
@@ -128,7 +131,7 @@
 
 .button-submit-form {
     background-color: rgb(113, 45, 113);
-    border: 2px solid black;
+    border: 3px solid black;
     height: 42px;
     font-size: 1rem;
     cursor: pointer;
