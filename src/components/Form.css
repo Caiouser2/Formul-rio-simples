@@ -142,7 +142,7 @@
 }
 
 .button-submit-form:focus {
-    outline: 2px solid rgba(0, 0, 0, 0.745);
+    outline: 1px solid rgba(0, 0, 0, 0.745);
 }
 
 .button-submit-form:hover,

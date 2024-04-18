@@ -6,11 +6,10 @@ import './Form.css';
 
 function Form() {
     const [indexInvalidValueOnInput, setIndexInvalidValueOnInput] = useState(null);
-    const counterValidInput = useRef(0);    
-
+    const counterValidInputs = useRef(0);
     const goToPageUser = useNavigate();
 
-    // pega os valores dentro de cada input
+    // torna informações dos elementos acessiveis
     const getValueIntoInputName = useRef(null);
     const getValueIntoInputEmail = useRef(null);
     const getValueIntoInputPhoneNumber = useRef(null);
@@ -37,29 +36,56 @@ function Form() {
         // verfifica se todos os inputs estão preechidos, caso todos estejam
         // salva um objeto no Local Storage
 
-        console.log(getValueIntoInputPostalCode)
+        let counterWhiteSpaceOnInputPhoneNumber = 0;
+        for(let counter = 0; counter < 15; counter++) {
+            if (getValueIntoInputPhoneNumber.current.value[counter] === ' ') {
+                counterWhiteSpaceOnInputPhoneNumber = counterWhiteSpaceOnInputPhoneNumber + 1; 
+            }
+        }
 
-        counterValidInput.current = 0;
-        removeErrorBorderOnInput()
+        // começa em 1 porque 0 é a quantidade de espaços vazios necessários para submeter form 
+        let setIfInputPostalCodeIsTotalyCompleted = getValueIntoInputPostalCode.current.value.includes(" ");
 
-        for(let index = 0; index < 9; index++) {
+        // reset contador de inputs validos a cada tentativa de submit
+        counterValidInputs.current = 0;
+        removeErrorBorderOnGeneralInput()
+
+        for(let index = 0; index < userInformationsFormatedToArray.length; index++) {
             if(userInformationsFormatedToArray[index].current.value === '') {
-                console.log('if ativado')
+                // verifica se input esta vazio e aplica borda vermelha caso seja true
                 userInformationsFormatedToArray[index].current.className += 'border-red-invalid-input';
                 setIndexInvalidValueOnInput(index);
                 return
             }
-
-            if(userInformationsFormatedToArray[counterValidInput.current].current.value !== '') {
-                //aumenta +1 no counterValidInput cada input correto. quando maior que 8 permite o submit do formulário
-                counterValidInput.current = counterValidInput.current + 1;
-                console.log(counterValidInput)
-
-            }
             
-            if(counterValidInput.current === 9) {
+            if(getValueIntoInputPhoneNumber.current.value !== '' && index !== 2 && counterWhiteSpaceOnInputPhoneNumber !== 2) {
+                // verifica se input numero de telefone esta faltando caracterie, caso true aplica borda vermelha
+                getValueIntoInputPhoneNumber.current.className = '';
+                getValueIntoInputPhoneNumber.current.className += 'border-red-invalid-input';
+
+                counterValidInputs.current = counterValidInputs.current - 1;
+                return
+            }
+
+            if(getValueIntoInputPostalCode.current.value !== '' && index !== 4 && setIfInputPostalCodeIsTotalyCompleted === true) {
+                // verifica se input cep esta faltando caracterie, caso true aplica borda vermelha
+                getValueIntoInputPostalCode.current.className = '';
+                getValueIntoInputPostalCode.current.className += 'border-red-invalid-input';
+                
+                counterValidInputs.current = counterValidInputs.current - 1;
+                return
+            }
+
+            if(userInformationsFormatedToArray[counterValidInputs.current].current.value !== '' ) {
+                //aumenta +1 no counterValidInput cada input correto.
+                counterValidInputs.current = counterValidInputs.current + 1;
+            }
+
+
+            // quando maior que 8 permite o submit do formulário
+            if(counterValidInputs.current === 9 && setIfInputPostalCodeIsTotalyCompleted === false && counterWhiteSpaceOnInputPhoneNumber === 2) {
                 saveDataOfFormInLocalStorage()
-                sendToOthersPage()
+                goToPageUser('/home');
             }
         }
 
@@ -81,52 +107,57 @@ function Form() {
         }
     }
 
-    function removeErrorBorderOnInput() {
+    function removeErrorBorderOnGeneralInput() {
+        // retira class que deixa borda vermelha atraves do index do elemento
         if(indexInvalidValueOnInput !== null) {
             userInformationsFormatedToArray[indexInvalidValueOnInput].current.className = ('');
             setIndexInvalidValueOnInput(null);
         }
     }
 
-    function sendToOthersPage() {
-        goToPageUser('/home');
+    function removeErrorBorderOnInputPhoneNumber() {
+        userInformationsFormatedToArray[2].current.className = ('');
+    }
+
+    function removeErrorBorderOnInputPostalCode() {
+        userInformationsFormatedToArray[4].current.className = ('');
     }
 
     return (
         <form className="form-user-info" autoComplete="off">
             <h2 className="title-form">Cadastro</h2>
            
-            <div className="agroup-label-and-input container-input-user-name" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-input-user-name" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-name">Nome Completo</label>
                 <input id="user-name" type="text" placeholder="Nome Completo" minLength="3" maxLength="40" ref={getValueIntoInputName} required></input>
             </div>
 
-            <div className="agroup-label-and-input container-user-email" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-email" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-email">Email</label>
                 <input id="user-email" type="email" placeholder="Email" maxLength="40" ref={getValueIntoInputEmail} required></input>
             </div>
 
-            <div className="agroup-label-and-input container-user-phone-number" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-phone-number" onClick={removeErrorBorderOnInputPhoneNumber}>
                 <label htmlFor="user-phone-number">Telefone</label>
                 <PatternFormat
                     id="user-phone-number"
                     valueIsNumericString
                     getInputRef={getValueIntoInputPhoneNumber}
                     placeholder="Telefone"
-                    format="(##) #####-####"
+                    format="(##)  #####-####"
                     required
                 />
 
             </div>
 
-            <div className="agroup-label-and-input container-user-date-of-birth" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-date-of-birth" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-date-of-birth">Nascimento</label>
                 <input id="user-date-of-birth" type="date" placeholder="Nascimento" ref={getValueIntoInputDateOfBirth} required></input>
             </div>
 
             <h3 className="title-address">Endereço</h3>
 
-            <div className="agroup-label-and-input container-user-postal-code" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-postal-code" onClick={removeErrorBorderOnInputPostalCode}>
                 <label htmlFor="user-postal-code">Cep</label>
                 <PatternFormat
                     valueIsNumericString
@@ -137,7 +168,7 @@ function Form() {
                 />
             </div>
 
-            <div className="agroup-label-and-input container-user-type-of-hausing" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-type-of-hausing" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-type-of-hausing">Lograduro</label>
                 <input
                     id="user-type-of-hausing"
@@ -149,7 +180,7 @@ function Form() {
                 ></input>
             </div>
 
-            <div className="agroup-label-and-input container-user-number-of-hausing" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-number-of-hausing" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-number-of-hausing">Nºda residência</label>
                 <input
                     id="user-number-of-hausing"
@@ -161,7 +192,7 @@ function Form() {
                 ></input>
             </div>
 
-            <div className="agroup-label-and-input container-user-neighborhood" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-neighborhood" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-neighborhood">Bairro</label>
                 <input
                     id="user-neighborhood"
@@ -173,12 +204,12 @@ function Form() {
                 ></input>
             </div>
 
-            <div className="agroup-label-and-input container-user-city" onClick={removeErrorBorderOnInput}>
+            <div className="agroup-label-and-input container-user-city" onClick={removeErrorBorderOnGeneralInput}>
                 <label htmlFor="user-city">Cidade</label>
                 <input id="user-city" type="text" placeholder="Cidade" maxLength="40" ref={getValueIntoInputCity} required></input>
             </div>
 
-            <button className="button-submit-form" type="submit" onClick={getAndSaveAllInformationsInForm}>Concluir</button>
+            <button className="button-submit-form" type="button" onClick={getAndSaveAllInformationsInForm}>Concluir</button>
         </form>
     );    
 }
